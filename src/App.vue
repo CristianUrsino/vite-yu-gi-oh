@@ -6,11 +6,13 @@
         <option value="">alien</option>
       </select>
       <div class="whiteBg p-5 container-fluid">
-        <div class="px-2 py-3 blackBg">
-          <div class="text-white">Found {{ store.cardsList.length }} cards</div>
-        </div>
         <div class="row row-cols-5 gx-3">
-          <div class="my-card" v-for="card in store.cardsList" :key="card.id">
+        <div class="col-12">
+          <div class="blackBg py-3 px-3">
+            <div class="text-white">Found {{ store.cardsList.length }} cards</div>
+          </div>
+        </div>
+          <div class="my-card my-3" v-for="card in store.cardsList" :key="card.id">
             <CardComponent
             :img="card.card_images[0].image_url"
             :name="card.name"
