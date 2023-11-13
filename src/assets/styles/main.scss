@@ -10,11 +10,29 @@
 img{
     width: 100%;
 }
+//UTILITYS
+.whiteBg{
+    background-color: $whiteColor;
+}
+.blackBg{
+    background-color: $blackColor;
+}
+.my-card{
+    background-color: $primaryColor;
+    text-align: center;
+    padding: 30px 0;
+    div:first-of-type{
+        font-weight: bold;
+    }
+}
 //STRUCTURE
 header{
-    background-color: $blackColor;
+    background-color: $whiteColor;
     padding: 20px 10px;
     figure{
         width: 100px;
     }
+}
+main{
+    background-color: $primaryColor;
 }
