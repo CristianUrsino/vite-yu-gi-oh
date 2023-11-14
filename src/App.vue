@@ -2,9 +2,9 @@
   <HeaderComponent/>
   <main>
     <div class="container">
-      <select class="m-3 px-2 py-1 rounded">
-        <option value="">alien</option>
-      </select>
+      <SelectionComponent
+      @filter-archetype="setParams"
+      />
       <div class="whiteBg p-5 container-fluid">
         <div class="row row-cols-5 gx-3">
         <div class="col-12">
@@ -28,6 +28,7 @@
 <script>
 import HeaderComponent from './components/HeaderComponent.vue'
 import CardComponent from './components/CardComponent.vue'
+import SelectionComponent from './components/SelectionComponent.vue';
 import {store} from './data/store';
 import axios from 'axios';
 export default{
@@ -35,21 +36,41 @@ export default{
   components:{
     HeaderComponent,
     CardComponent,
+    SelectionComponent,
   },
   data(){
     return{
-      store
+      store,
+      params : {
+        num: 100,
+        offset:0,
+      },
     }
   },
   methods:{
+    setParams(search) {
+      console.log(search);
+      if (search) {
+        this.params = {
+          archetype: search,
+        }
+      } else {
+        this.params = {
+          archetype: 'all',
+        };
+      }
+      this.getCardsInfo();
+    },
+
     getCardsInfo(){
-      const url = store.apiUrl + store.endPoint.archetype + '=' + 'alien';
-      axios.get(url).then((res)=>{
+      const url = store.apiUrl + store.endPoint;
+      axios.get(url, { params: this.params }).then((res)=>{
         store.cardsList = res.data.data;
         console.log(store.cardsList);
-      })
+      }).catch((error)=>{
+        console.log(error);
+      });
     },
-    
   },
   created(){
     this.getCardsInfo();
