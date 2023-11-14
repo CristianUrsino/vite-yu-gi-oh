@@ -41,39 +41,52 @@ export default{
   data(){
     return{
       store,
-      params : {
+      cardParams : {
         num: 100,
         offset:0,
       },
+      archetypeParams:{
+        // num:100,
+        // offset:1,
+      }
     }
   },
   methods:{
     setParams(search) {
       console.log(search);
       if (search) {
-        this.params = {
+        this.cardParams = {
           archetype: search,
         }
       } else {
-        this.params = {
+        this.cardParams = {
           archetype: 'all',
         };
       }
       this.getCardsInfo();
     },
-
     getCardsInfo(){
-      const url = store.apiUrl + store.endPoint;
-      axios.get(url, { params: this.params }).then((res)=>{
+      const url = store.apiUrl + store.endPoint.cardinfo;
+      axios.get(url, { params: this.cardParams }).then((res)=>{
         store.cardsList = res.data.data;
-        console.log(store.cardsList);
+        // console.log(store.cardsList);
       }).catch((error)=>{
         console.log(error);
       });
     },
+    getArchetypes(){
+      const url = store.apiUrl + store.endPoint.archetypes;
+      axios.get(url, { params: this.archetypeParams }).then((res)=>{
+        store.archetypesList = res.data;
+        console.log(store.archetypesList);
+      }).catch((error)=>{
+        console.log(error);
+      });
+    }
   },
   created(){
     this.getCardsInfo();
+    this.getArchetypes();
   }
 }
 </script>
